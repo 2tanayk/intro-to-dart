@@ -14,16 +14,23 @@ import 'package:intro_to_dart/intro_to_dart.dart' as intro_to_dart;
 late String description; //lateinit
 final place = 'Mumbai'; // runtime constant
 const bar = 1000000; //compile time constant
+var nList = [1, 2, 3];
 var _nobleGases = {
   // Key:    Value
   1: 'partridge',
   2: 'turtledoves',
   3: 'golden rings'
 };
+var loudify = (msg) =>
+    '!!! ${msg.toUpperCase()} !!!'; //You can also assign a function to a variable
 
 // Define a function.
 void printInteger(int aNumber) {
   print('The number is $aNumber.'); // Print to console.
+}
+
+void printElement(int element) {
+  print(element);
 }
 
 //function
@@ -49,21 +56,31 @@ String say(String from, String msg, [String? device]) {
   return result;
 }
 
-//Your function can use = to define default values for both named and positional parameters. 
+//Your function can use = to define default values for both named and positional parameters.
 //The default values must be compile-time constants. If no default value is provided, the default value is null.
 //Here’s an example of setting default values for named parameters
-/// Sets the [bold] and [hidden] flags ...
+// Sets the [bold] and [hidden] flags ...
 // void enableFlags({bool bold = false, bool hidden = false}) {...}
 // bold will be true; hidden will be false.
 // enableFlags(bold: true);
 
+//A closure is a function object that has access to variables in its lexical scope, even when the function is used outside of its original scope.
+
+// Functions can close over variables defined in surrounding scopes. 
+//In the following example, makeAdder() captures the variable addBy. 
+//Wherever the returned function goes, it remembers addBy.
+
+// Returns a function that adds [addBy] to the
+// function's argument.
+Function makeAdder(int addBy) {
+  return (int i) => addBy + i;
+}
 
 void main(List<String> arguments) {
   var number = 42; // Declare and initialize a variable, type inferred to int
   var y = 1.1; //double
   num x = 1; // x can have both int and double values
-  double z =
-      1; //Integer literals are automatically converted to doubles when necessary, Equivalent to double z = 1.0.
+  double z = 1; //Integer literals are automatically converted to doubles when necessary, Equivalent to double z = 1.0.
   String name = 'Tanay';
   int? n; //nullable type
   var one = int.parse('1'); //String -> int
@@ -125,8 +142,24 @@ void main(List<String> arguments) {
     10: 'neon',
     18: 'argon',
   };
-
 //lists,sets and maps all support spread operator as well as collection if and for
+
+//You can pass a function as a parameter to another function
+  nList.forEach(printElement);
+  const fruitList = ['apples', 'bananas', 'oranges'];
+  //Anonymous function
+  fruitList.forEach((item) {
+    print('${fruitList.indexOf(item)}: $item');
+  });
+  //If the function contains only a single expression or return statement,
+  // you can shorten it using arrow notation.
+  //list.forEach((item) => print('${list.indexOf(item)}: $item'));
+
+  // Create a function that adds 2.
+  var add2 = makeAdder(2);
+
+  // Create a function that adds 4.
+  var add4 = makeAdder(4);
 
   print(description);
   print('Hello world: ${intro_to_dart.calculate()}!');
@@ -143,5 +176,6 @@ void main(List<String> arguments) {
   print(isNoble(1));
   print(threeSum(b: 1, a: 2, c: 10));
   print(say('Tanay', 'DDSGS'));
+  print(add2(10));
   printInteger(10);
 }
