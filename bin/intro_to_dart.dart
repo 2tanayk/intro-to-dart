@@ -1,5 +1,5 @@
 import 'package:intro_to_dart/intro_to_dart.dart' as intro_to_dart;
-
+import 'dart:math';
 // The Dart language has special support for the following:
 // Numbers (int, double)
 // Strings (String)
@@ -76,12 +76,137 @@ Function makeAdder(int addBy) {
   return (int i) => addBy + i;
 }
 
+//class
+class Point3D {
+  double? x; // Declare instance variable x, initially null.
+  double? y; // Declare y, initially null.
+  double z = 0; // Declare z, initially 0.
+}
+
+class Point2D {
+  double x = 0;
+  double y = 0;
+
+  Point2D(double x, double y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+//or
+// class Point2D {
+//   double x = 0;
+//   double y = 0;
+
+//   // Syntactic sugar for setting x and y
+//   // before the constructor body runs.
+//   Point(this.x, this.y);
+// }
+
+const double xOrigin = 0;
+const double yOrigin = 0;
+
+class Point {
+  double x = 0;
+  double y = 0;
+
+  Point(this.x, this.y);
+
+  // Named constructor
+  Point.origin()
+      : x = xOrigin,
+        y = yOrigin;
+
+  double distanceTo(Point other) {
+    var dx = x - other.x;
+    var dy = y - other.y;
+    return sqrt(dx * dx + dy * dy);
+  }
+}
+
+class Rectangle {
+  double left, top, width, height;
+
+  Rectangle(this.left, this.top, this.width, this.height);
+
+  // Define two calculated properties: right and bottom.
+  double get right => left + width;
+  set right(double value) => left = value - width;
+  double get bottom => top + height;
+  set bottom(double value) => top = value - height;
+}
+
+//inheritance
+// class Television {
+//   void turnOn() {
+//     _illuminateDisplay();
+//     _activateIrSensor();
+//   }
+//   // ···
+// }
+
+// class SmartTelevision extends Television {
+     //@override
+//   void turnOn() {
+//     super.turnOn();
+//     _bootNetworkInterface();
+//     _initializeMemory();
+//     _upgradeApps();
+//   }
+//   // ···
+// }
+
+//abstract class
+
+// This class is declared abstract and thus
+// can't be instantiated.
+abstract class Doer {
+  // Define instance variables and methods...
+
+  void doSomething(); // Define an abstract method.
+}
+
+//concrete implementation
+class EffectiveDoer extends Doer {
+  void doSomething() {
+    // Provide an implementation, so the method is not abstract here...
+  }
+}
+
+//implicit interfaces
+
+//Every class implicitly defines an interface containing all the instance members of the class and
+// of any interfaces it implements. If you want to create a class A that supports
+// class B’s API without inheriting B’s implementation, class A should implement the B interface
+
+//A class implements one or more interfaces by declaring them in an implements clause and then providing
+// the APIs required by the interfaces. For example
+
+// A person. The implicit interface contains greet().
+class Person {
+  // In the interface, but visible only in this library.
+  final String _name;
+
+  // Not in the interface, since this is a constructor.
+  Person(this._name);
+
+  // In the interface.
+  String greet(String who) => 'Hello, $who. I am $_name.';
+}
+
+// An implementation of the Person interface.
+class Impostor implements Person {
+  String get _name => '';
+
+  String greet(String who) => 'Hi $who. Do you know who I am?';
+}
+// learn more at https://dart.dev/guides/language/language-tour#classes
+
 void main(List<String> arguments) {
   var number = 42; // Declare and initialize a variable, type inferred to int
   var y = 1.1; //double
   num x = 1; // x can have both int and double values
-  double z =
-      1; //Integer literals are automatically converted to doubles when necessary, Equivalent to double z = 1.0.
+  //Integer literals are automatically converted to doubles when necessary, Equivalent to double z = 1.0.
+  double z = 1;
   String name = 'Tanay';
   int? n; //nullable type
   var one = int.parse('1'); //String -> int
@@ -209,7 +334,7 @@ void main(List<String> arguments) {
 
 //switch case
 
-//break is mandatory in a non-empty case,to allow fallthrough either 
+//break is mandatory in a non-empty case,to allow fallthrough either
 //keep the case empty or use continue with label for eg.
 // var command = 'CLOSED';
 // switch (command) {
@@ -245,6 +370,51 @@ void main(List<String> arguments) {
       print('default');
   }
 
+//Exceptions and its handling
+//Here’s an example of throwing, or raising, an exception:
+//  throw FormatException('Expected at least 1 section');
+//catching an exception
+  // try {
+  //   breedMoreLlamas();
+  // } on OutOfLlamasException {
+  //   buyMoreLlamas();
+  // }
+
+// try {
+//   breedMoreLlamas();
+// } on OutOfLlamasException {
+//   // A specific exception
+//   buyMoreLlamas();
+// } on Exception catch (e) {
+//   // Anything else that is an exception
+//   print('Unknown exception: $e');
+// } catch (e,s) {
+//   // No specified type, handles all
+//The second param s is StackTrace
+//   print('Something really unknown: $e');
+// }
+// finally {
+  //finally always runs
+//   // Always clean up, even if an exception is thrown.
+//   cleanLlamaStalls();
+// }
+// As the preceding code shows, you can use either on or catch or both.
+//Use on when you need to specify the exception type.
+//Use catch when your exception handler needs the exception object.
+
+//OOP
+  var point = Point3D();
+  point.x = 4; // Use the setter method for x.
+
+  var nPoint1 = Point.origin();
+  var nPoint2 = Point(10, 20);
+
+//getter and setter demo
+  var rect = Rectangle(3, 4, 20, 15);
+  print(rect.left);
+  rect.right = 12;
+  print(rect.left);
+
   print(description);
   print('Hello world: ${intro_to_dart.calculate()}!');
   print(number);
@@ -261,5 +431,8 @@ void main(List<String> arguments) {
   print(threeSum(b: 1, a: 2, c: 10));
   print(say('Tanay', 'DDSGS'));
   print(add2(10));
+  print(point);
+  print('nPoint1: ${nPoint1.x}, ${nPoint1.y}');
+  print('nPoint2: ${nPoint2.x}, ${nPoint2.y}');
   printInteger(10);
 }
