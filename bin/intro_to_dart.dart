@@ -66,8 +66,8 @@ String say(String from, String msg, [String? device]) {
 
 //A closure is a function object that has access to variables in its lexical scope, even when the function is used outside of its original scope.
 
-// Functions can close over variables defined in surrounding scopes. 
-//In the following example, makeAdder() captures the variable addBy. 
+// Functions can close over variables defined in surrounding scopes.
+//In the following example, makeAdder() captures the variable addBy.
 //Wherever the returned function goes, it remembers addBy.
 
 // Returns a function that adds [addBy] to the
@@ -80,7 +80,8 @@ void main(List<String> arguments) {
   var number = 42; // Declare and initialize a variable, type inferred to int
   var y = 1.1; //double
   num x = 1; // x can have both int and double values
-  double z = 1; //Integer literals are automatically converted to doubles when necessary, Equivalent to double z = 1.0.
+  double z =
+      1; //Integer literals are automatically converted to doubles when necessary, Equivalent to double z = 1.0.
   String name = 'Tanay';
   int? n; //nullable type
   var one = int.parse('1'); //String -> int
@@ -160,6 +161,89 @@ void main(List<String> arguments) {
 
   // Create a function that adds 4.
   var add4 = makeAdder(4);
+
+//learn about operators here https://dart.dev/guides/language/language-tour#operators
+
+//control flow statements
+
+//if-else-if
+  var condition = true;
+  if (condition) {
+    print('true block');
+  } else if (condition) {
+    print('else if');
+  } else {
+    print('else');
+  }
+//for loop
+  var message = StringBuffer('Dart is fun');
+  for (var i = 0; i < 5; i++) {
+    message.write('!');
+  }
+//Closures inside of Dart’s for loops capture the value of the index,
+// avoiding a common pitfall found in JavaScript. For example, consider
+  var callbacks = [];
+  for (var i = 0; i < 2; i++) {
+    callbacks.add(() => print(i));
+  }
+  callbacks.forEach((c) => c());
+
+//If the object that you are iterating over is an Iterable (such as List or Set)
+//and if you don’t need to know the current iteration counter,
+//you can use the for-in form of iteration
+//  for (var candidate in candidates) {
+//   candidate.interview();
+// }
+
+//while loop
+//   while (!isDone()) {
+//   doSomething();
+// }
+
+//do-while
+// do {
+//   printLine();
+// } while (!atEndOfPage());
+
+//break and continue work almost the same way as in other languages
+
+//switch case
+
+//break is mandatory in a non-empty case,to allow fallthrough either 
+//keep the case empty or use continue with label for eg.
+// var command = 'CLOSED';
+// switch (command) {
+//   case 'CLOSED':
+//     executeClosed();
+//     continue nowClosed;
+//   // Continues executing at the nowClosed label.
+
+//   nowClosed:
+//   case 'NOW_CLOSED':
+//     // Runs for both CLOSED and NOW_CLOSED.
+//     executeNowClosed();
+//     break;
+// }
+  var command = 'OPEN';
+  switch (command) {
+    case 'CLOSED':
+      print('closed');
+      break;
+    case 'PENDING':
+      print('pending');
+      break;
+    case 'APPROVED':
+      print('approved');
+      break;
+    case 'DENIED':
+      print('denied');
+      break;
+    case 'OPEN':
+      print('open');
+      break;
+    default:
+      print('default');
+  }
 
   print(description);
   print('Hello world: ${intro_to_dart.calculate()}!');
