@@ -201,6 +201,30 @@ class Impostor implements Person {
 }
 // learn more at https://dart.dev/guides/language/language-tour#classes
 
+//When implementing a generic type,
+// you might want to limit the types of its parameters. You can do this using extends.
+
+// class Foo<T extends SomeBaseClass> {
+//   // Implementation goes here...
+//   String toString() => "Instance of 'Foo<$T>'";
+// }
+
+// class Extender extends SomeBaseClass {...}
+//It’s OK to use SomeBaseClass or any of its subclasses as generic argument
+
+//Initially, Dart’s generic support was limited to classes.
+// A newer syntax, called generic methods, allows type arguments on methods and functions
+// T first<T>(List<T> ts) {
+//   // Do some initial work or error checking, then...
+//   T tmp = ts[0];
+//   // Do some additional checking or processing...
+//   return tmp;
+// }
+//Here the generic type parameter on first (<T>) allows you to use the type argument T in several places:
+// In the function’s return type (T).
+// In the type of an argument (List<T>).
+// In the type of a local variable (T tmp).
+
 void main(List<String> arguments) {
   var number = 42; // Declare and initialize a variable, type inferred to int
   var y = 1.1; //double
@@ -414,6 +438,17 @@ void main(List<String> arguments) {
   print(rect.left);
   rect.right = 12;
   print(rect.left);
+
+//Generics
+  var namesList = <String>['Seth', 'Kathy', 'Lars'];
+  var uniqueNames = <String>{'Seth', 'Kathy', 'Lars'};
+  var pages = <String, String>{
+    'index.html': 'Homepage',
+    'robots.txt': 'Hints for web robots',
+    'humans.txt': 'We are people, not machines'
+  };
+  var nameSet = Set<String>.from(names);
+  var views = Map<int, String>();
 
   print(description);
   print('Hello world: ${intro_to_dart.calculate()}!');
